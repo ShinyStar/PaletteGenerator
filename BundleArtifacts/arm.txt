@@ -1,0 +1,2 @@
+MainPackage=C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\bin\ARM\Debug\PaletteGenerator_1.0.3.0_ARM_Debug.appx
+SymbolPackage=C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\AppPackages\PaletteGenerator_1.0.3.0_Debug_Test\PaletteGenerator_1.0.3.0_ARM_Debug.appxsym

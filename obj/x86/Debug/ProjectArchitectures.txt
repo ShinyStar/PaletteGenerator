@@ -1,0 +1,1 @@
+C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\PaletteGenerator.csproj;x86
