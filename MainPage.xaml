@@ -5,14 +5,18 @@
     xmlns:local="using:PaletteGenerator"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:UI="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d">
 
     <Grid Background="White">
+        
         <TextBlock Text="Palette Generator" Margin="20,20,0,40" FontSize="29.333"/>
         <TextBlock Text="Generate a random color palette." Margin="20,70,0,40"/>
+        <!--<TextBlock Text="Change the first box value and click 'Use as Base' to generate a palette" Margin="20,85,0,40" FontSize="10"/>
+        <TextBlock Text="from the entered value." Margin="20,95,0,40" FontSize="10"/>-->
         <TextBlock Text="Click on the colors to copy them to clipboard in ARGB format." Margin="20,90,0,40" FontSize="10"/>
         <StackPanel x:Name="inputPanel" Orientation="Vertical" Margin="20,120,-20,180">
-            <Button x:Name="generateButton" Content="Generate!" Click="randomizePalette"/>
+            <Button x:Name="generateButton" Content="Generate!" Click="noBase"/>
         </StackPanel>
         <StackPanel>
             <StackPanel.Resources>
@@ -38,11 +42,23 @@
         <TextBox x:Name="colorText5" HorizontalAlignment="Left" Margin="20,460,0,0" TextWrapping="Wrap" Text="#D4D4D4" VerticalAlignment="Top" Width="200"/>
         <TextBox x:Name="colorText6" HorizontalAlignment="Left" Margin="20,500,0,0" TextWrapping="Wrap" Text="#B4B4B4" VerticalAlignment="Top" Width="200"/>
 
-        <StackPanel x:Name="savePanel" Orientation="Horizontal" Margin="20,550,0,0">
-            <Button x:Name="saveButton" Content="Save as Image" Click="savePalette"/>
+        <SymbolIcon Symbol="Back" Margin="223,305,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="baseButton" Content="Use as Base" Click="useBase" Margin="245,300,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        
+        <StackPanel Margin="235,340,0,108">
+            <TextBlock Text="Modes" FontSize="20"/>
+            <RadioButton Name="smoothMode">Smooth</RadioButton>
+            <RadioButton Name="accentMode">Accent</RadioButton>
+            <RadioButton Name="variedMode">Varied</RadioButton>
+            <RadioButton Name="crazyMode" >Crazy</RadioButton>
+            <RadioButton Name="randomMode" IsChecked="True">Random</RadioButton>
         </StackPanel>
-        <StackPanel x:Name="sharePanel" Orientation="Horizontal" Margin="170,550,0,0">
-            <Button x:Name="shareButton" Content="Share Palette" Click="sharePalette"/>
-        </StackPanel>
+
+
+        <Button x:Name="saveButton" Content="Save as Image" Click="savePalette" Margin="170,540,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Button x:Name="shareButton" Content="Share Palette" Click="sharePalette" Margin="20,540,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+        <UI:AdControl ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1" AdUnitId="10865270" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" Height="50" Margin="20,580,0,0"/>
+
     </Grid>
 </Page>
