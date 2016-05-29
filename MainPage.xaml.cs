@@ -38,7 +38,12 @@ namespace PaletteGenerator {
         }
 
         private void useBase(object sender, RoutedEventArgs e) {
-            var color1=colorText1.Text.Substring(1, 6);
+            string color1;
+            if (colorText1.Text.Length > 7) {
+                color1 = colorText1.Text.Substring(3, 6);
+            } else {
+                color1 = colorText1.Text.Substring(1, 6);
+            }
             var basecolor = Int32.Parse(color1, System.Globalization.NumberStyles.HexNumber);
             randomizePalette(basecolor);
         }
