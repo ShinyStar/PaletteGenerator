@@ -33,19 +33,33 @@ namespace PaletteGenerator {
 
         private void noBase(object sender, RoutedEventArgs e) {
             var random = new Random();
-            var basecolor = random.Next(0x100000);            
-            randomizePalette(basecolor);
+            var basecolor = random.Next(0x100000);
+            if (baseColor.IsChecked.Equals(true)) {
+                useBase();
+            } else {
+                if (invalidText.Opacity.Equals(1)) {
+                    invalidStoryboardOut.Begin();
+                }
+                randomizePalette(basecolor);
+            }
         }
 
-        private void useBase(object sender, RoutedEventArgs e) {
+        private void useBase() {
             string color1;
             if (colorText1.Text.Length > 7) {
                 color1 = colorText1.Text.Substring(3, 6);
             } else {
                 color1 = colorText1.Text.Substring(1, 6);
             }
-            var basecolor = Int32.Parse(color1, System.Globalization.NumberStyles.HexNumber);
-            randomizePalette(basecolor);
+            try {
+                var basecolor = Int32.Parse(color1, System.Globalization.NumberStyles.HexNumber);
+                if (invalidText.Opacity.Equals(1)) {
+                    invalidStoryboardOut.Begin();
+                }
+                randomizePalette(basecolor);
+            } catch {
+                invalidStoryboardIn.Begin();
+            }
         }
 
         private void randomizePalette(int basecolor) {
@@ -54,7 +68,7 @@ namespace PaletteGenerator {
 
             string color2 = null, color3 = null, color4 = null, color5 = null, color6 = null;
 
-            if (randomMode.IsChecked.Equals(true)) {
+            if (randomMode.IsSelected.Equals(true)) {
                 var mode = random.Next(6);
                 if (mode == 1) {
                     crazy(basecolor, ref color2, ref color3, ref color4, ref color5, ref color6);
@@ -65,11 +79,11 @@ namespace PaletteGenerator {
                 } else {
                     accent(basecolor, ref color2, ref color3, ref color4, ref color5, ref color6);
                 }
-            }else if (smoothMode.IsChecked.Equals(true)) {
+            }else if (smoothMode.IsSelected.Equals(true)) {
                 smooth(basecolor, ref color2, ref color3, ref color4, ref color5, ref color6);
-            } else if (accentMode.IsChecked.Equals(true)) {
+            } else if (accentMode.IsSelected.Equals(true)) {
                 accent(basecolor, ref color2, ref color3, ref color4, ref color5, ref color6);
-            } else if (variedMode.IsChecked.Equals(true)) {
+            } else if (variedMode.IsSelected.Equals(true)) {
                 varied(basecolor, ref color2, ref color3, ref color4, ref color5, ref color6);
             } else {
                 crazy(basecolor, ref color2, ref color3, ref color4, ref color5, ref color6);

@@ -9,56 +9,103 @@
     mc:Ignorable="d">
 
     <Grid Background="White">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="mainStack.Orientation" Value="Horizontal" />
+                        <Setter Target="mainStack.HorizontalAlignment" Value="Center" />
+                        <Setter Target="mainStack.VerticalAlignment" Value="Center" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="Advertisement.Width" Value="728" />
+                        <Setter Target="Advertisement.Height" Value="90" />
+                        <Setter Target="Advertisement.Margin" Value="-384,20,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
         
-        <TextBlock Text="Palette Generator" Margin="20,20,0,40" FontSize="29.333"/>
-        <TextBlock Text="Generate a random color palette." Margin="20,70,0,40"/>
-        <!--<TextBlock Text="Change the first box value and click 'Use as Base' to generate a palette" Margin="20,85,0,40" FontSize="10"/>
-        <TextBlock Text="from the entered value." Margin="20,95,0,40" FontSize="10"/>-->
-        <TextBlock Text="Click on the colors to copy them to clipboard in ARGB format." Margin="20,90,0,40" FontSize="10"/>
-        <StackPanel x:Name="inputPanel" Orientation="Vertical" Margin="20,120,-20,180">
-            <Button x:Name="generateButton" Content="Generate!" Click="noBase"/>
+        <StackPanel Name="mainStack">
+            <StackPanel>
+                <TextBlock Text="Palette Generator" FontSize="29.333" Margin="20,5,0,0"/>
+                <TextBlock Text="Generate a random color palette." Margin="20,0,0,0"/>
+                <TextBlock Text="Click on the colors to copy them to clipboard in ARGB format." FontSize="10" Margin="20,0,0,0"/>
+
+                <StackPanel x:Name="inputPanel" Orientation="Horizontal" Margin="0,10,0,0">
+                    <Button x:Name="generateButton" Content="Generate!" Click="noBase" HorizontalAlignment="Center" Margin="20,0,0,0"/>
+                    <TextBlock x:Name="copiedText" Text="Copied!" FontSize="20" Foreground="#FF3A55BD" Opacity="0" Margin="20,0,0,0"/>
+                </StackPanel>
+                <StackPanel>
+                    <StackPanel.Resources>
+                        <Storyboard x:Name="copiedStoryboard">
+                            <DoubleAnimation Storyboard.TargetName="copiedText" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </StackPanel.Resources>
+                </StackPanel>
+                <StackPanel Margin="20,5,0,0" Orientation="Horizontal">
+                    <Rectangle x:Name="colorRect1" Fill="#F4F4F4" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
+                    <Rectangle x:Name="colorRect2" Fill="#D4D4D4" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
+                    <Rectangle x:Name="colorRect3" Fill="#B4B4B4" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
+                    <Rectangle x:Name="colorRect4" Fill="#949494" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
+                    <Rectangle x:Name="colorRect5" Fill="#D4D4D4" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
+                    <Rectangle x:Name="colorRect6" Fill="#B4B4B4" HorizontalAlignment="Left" Height="100" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
+                </StackPanel>
+                <CheckBox Name="baseColor" Margin="20,0,0,0" Content="Lock first color (can be set in hex value box)" FontSize="14">
+                    <ToolTipService.ToolTip>
+                        <ToolTip HorizontalOffset="5" VerticalOffset="5">Lock the first color and generate the rest from it. You can set the first color in the Hex Values boxes.</ToolTip>
+                    </ToolTipService.ToolTip>
+                </CheckBox>
+                
+                <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                    <TextBlock Text="Mode:" FontSize="20"/>
+                    <ComboBox Margin="5,0,0,0" Width="111">
+                        <ComboBoxItem Name="smoothMode">Smooth</ComboBoxItem>
+                        <ComboBoxItem Name="accentMode">Accent</ComboBoxItem>
+                        <ComboBoxItem Name="variedMode">Varied</ComboBoxItem>
+                        <ComboBoxItem Name="crazyMode">Crazy</ComboBoxItem>
+                        <ComboBoxItem Name="randomMode" IsSelected="True">Random</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+            </StackPanel>
+
+            <StackPanel>
+                <StackPanel.Resources>
+                    <Storyboard x:Name="invalidStoryboardIn">
+                        <DoubleAnimation Storyboard.TargetName="invalidText" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
+                    </Storyboard>
+                    <Storyboard x:Name="invalidStoryboardOut">
+                        <DoubleAnimation Storyboard.TargetName="invalidText" Storyboard.TargetProperty="Opacity" From="1" To="0" Duration="0:0:0.3"/>
+                    </Storyboard>
+                </StackPanel.Resources>
+            </StackPanel>
+            <StackPanel Margin="20,5,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Hex Values" FontSize="20" Margin="0,0,0,5"/>
+                    <TextBlock x:Name="invalidText" Text="Invalid Hex" FontSize="20" Foreground="#FFFF3E2B" Opacity="0" Margin="5,0,0,0"/>
+                </StackPanel>
+                <TextBox x:Name="colorText1" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#F4F4F4" VerticalAlignment="Top" Width="200"/>
+                <TextBox x:Name="colorText2" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#D4D4D4" VerticalAlignment="Top" Width="200"/>
+                <TextBox x:Name="colorText3" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#B4B4B4" VerticalAlignment="Top" Width="200"/>
+                <TextBox x:Name="colorText4" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#949494" VerticalAlignment="Top" Width="200"/>
+                <TextBox x:Name="colorText5" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#D4D4D4" VerticalAlignment="Top" Width="200"/>
+                <TextBox x:Name="colorText6" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#B4B4B4" VerticalAlignment="Top" Width="200"/>
+                <StackPanel Orientation="Horizontal">
+                    <!--<Button x:Name="saveButton" Content="Save as Image" Click="savePalette" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,10,0"/>-->
+                    <Button x:Name="shareButton" Content="Share Palette" Click="sharePalette" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"/>
+                </StackPanel>
+                <UI:AdControl Name="Advertisement" ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1" AdUnitId="10865270" VerticalAlignment="Top" Width="320" Height="50" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+            </StackPanel>
         </StackPanel>
-        <StackPanel>
-            <StackPanel.Resources>
-                <Storyboard x:Name="copiedStoryboard">
-                    <DoubleAnimation Storyboard.TargetName="copiedText" Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.5"/>
-                </Storyboard>
-            </StackPanel.Resources>
-        </StackPanel>
-        <TextBlock x:Name="copiedText" Text="Copied!" Margin="120,120,0,40" FontSize="20" Foreground="#FF3A55BD" Opacity="0"/>
-
-        <Rectangle x:Name="colorRect1" Fill="#F4F4F4" HorizontalAlignment="Left" Height="100" Margin="20,160,0,0" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
-        <Rectangle x:Name="colorRect2" Fill="#D4D4D4" HorizontalAlignment="Left" Height="100" Margin="70,160,0,0" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
-        <Rectangle x:Name="colorRect3" Fill="#B4B4B4" HorizontalAlignment="Left" Height="100" Margin="120,160,0,0" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
-        <Rectangle x:Name="colorRect4" Fill="#949494" HorizontalAlignment="Left" Height="100" Margin="170,160,0,0" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
-        <Rectangle x:Name="colorRect5" Fill="#D4D4D4" HorizontalAlignment="Left" Height="100" Margin="220,160,0,0" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
-        <Rectangle x:Name="colorRect6" Fill="#B4B4B4" HorizontalAlignment="Left" Height="100" Margin="270,160,0,0" VerticalAlignment="Top" Width="50" PointerPressed="toClipboard"/>
-
-        <TextBlock Text="Hex Values" Margin="20,270,0,40" FontSize="20"/>
-        <TextBox x:Name="colorText1" HorizontalAlignment="Left" Margin="20,300,0,0" TextWrapping="Wrap" Text="#F4F4F4" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="colorText2" HorizontalAlignment="Left" Margin="20,340,0,0" TextWrapping="Wrap" Text="#D4D4D4" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="colorText3" HorizontalAlignment="Left" Margin="20,380,0,0" TextWrapping="Wrap" Text="#B4B4B4" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="colorText4" HorizontalAlignment="Left" Margin="20,420,0,0" TextWrapping="Wrap" Text="#949494" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="colorText5" HorizontalAlignment="Left" Margin="20,460,0,0" TextWrapping="Wrap" Text="#D4D4D4" VerticalAlignment="Top" Width="200"/>
-        <TextBox x:Name="colorText6" HorizontalAlignment="Left" Margin="20,500,0,0" TextWrapping="Wrap" Text="#B4B4B4" VerticalAlignment="Top" Width="200"/>
-
-        <SymbolIcon Symbol="Back" Margin="223,305,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="baseButton" Content="Use as Base" Click="useBase" Margin="245,300,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        
-        <StackPanel Margin="235,340,0,108">
-            <TextBlock Text="Modes" FontSize="20"/>
-            <RadioButton Name="smoothMode">Smooth</RadioButton>
-            <RadioButton Name="accentMode">Accent</RadioButton>
-            <RadioButton Name="variedMode">Varied</RadioButton>
-            <RadioButton Name="crazyMode" >Crazy</RadioButton>
-            <RadioButton Name="randomMode" IsChecked="True">Random</RadioButton>
-        </StackPanel>
-
-
-        <Button x:Name="saveButton" Content="Save as Image" Click="savePalette" Margin="170,540,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-        <Button x:Name="shareButton" Content="Share Palette" Click="sharePalette" Margin="20,540,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
-        <UI:AdControl ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1" AdUnitId="10865270" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" Height="50" Margin="20,580,0,0"/>
-
     </Grid>
 </Page>

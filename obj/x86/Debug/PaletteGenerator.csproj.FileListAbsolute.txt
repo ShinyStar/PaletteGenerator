@@ -196,3 +196,4 @@ C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\obj\x86\Debug\
 C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\obj\x86\Debug\ProjectArchitectures.txt
 C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\bin\x86\Debug\Core\ForBundle\AppxManifest.xml
 C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\bin\x86\Debug\WriteableBitmapEx.WinRT.dll
+C:\Users\silvi\Documents\GitHub\PaletteGenerator\PaletteGenerator\bin\x86\Debug\WriteableBitmapEx.WinRT.pdb
