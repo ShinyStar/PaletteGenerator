@@ -25,18 +25,22 @@
             <VisualStateGroup>
                 <VisualState>
                     <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
+                        <AdaptiveTrigger MinWindowWidth="540" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="Advertisement.Width" Value="728" />
+                        <!--<Setter Target="Advertisement.Width" Value="728" />
                         <Setter Target="Advertisement.Height" Value="90" />
-                        <Setter Target="Advertisement.Margin" Value="-384,20,0,0" />
+                        <Setter Target="Advertisement.Margin" Value="-384,20,0,0" />-->
+                        <Setter Target="shareButton.Visibility" Value="Visible" />
+                        <Setter Target="Advertisement.Visibility" Value="Visible" />
+                        <Setter Target="Advertisement2.Visibility" Value="Collapsed" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
         </VisualStateManager.VisualStateGroups>
         
-        <StackPanel Name="mainStack">
+        <StackPanel Name="mainStack" Orientation="Horizontal">
+            <StackPanel>
             <StackPanel>
                 <TextBlock Text="Palette Generator" FontSize="29.333" Margin="20,5,0,0"/>
                 <TextBlock Text="Generate a random color palette." Margin="20,0,0,0"/>
@@ -102,10 +106,12 @@
                 <TextBox x:Name="colorText6" IsReadOnly="True" HorizontalAlignment="Left" Margin="0,0,0,5" TextWrapping="Wrap" Text="#B4B4B4" VerticalAlignment="Top" Width="200"/>
                 <StackPanel Orientation="Horizontal">
                     <!--<Button x:Name="saveButton" Content="Save as Image" Click="savePalette" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,10,0"/>-->
-                    <Button x:Name="shareButton" Content="Share Palette" Click="sharePalette" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0"/>
-                </StackPanel>
-                <UI:AdControl Name="Advertisement" ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1" AdUnitId="10865270" VerticalAlignment="Top" Width="320" Height="50" Margin="0,5,0,0" HorizontalAlignment="Left"/>
+                    <Button x:Name="shareButton" Content="Share Palette" Click="sharePalette" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,0,0,0" Visibility="Collapsed"/>
+                    <UI:AdControl Name="Advertisement2" ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1" AdUnitId="10865270" VerticalAlignment="Top" Width="300" Height="50" Margin="0,0,0,0" HorizontalAlignment="Left" Visibility="Visible"/>
+                    </StackPanel>
             </StackPanel>
+        </StackPanel>
+            <UI:AdControl Name="Advertisement" ApplicationId="3f83fe91-d6be-434d-a0ae-7351c5a997f1" AdUnitId="10865270" VerticalAlignment="Top" Width="160" Height="600" Margin="20,20,0,0" HorizontalAlignment="Left" Visibility="Collapsed"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -17,6 +17,7 @@ using Windows.UI;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Threading.Tasks;
+using Windows.UI.ViewManagement;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,6 +30,10 @@ namespace PaletteGenerator {
         public MainPage()
         {
             this.InitializeComponent();
+
+            ApplicationView.GetForCurrentView().SetPreferredMinSize(new Size(540, 640));
+            ApplicationView.PreferredLaunchViewSize = new Size(540, 640);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;
         }
 
         private void noBase(object sender, RoutedEventArgs e) {
